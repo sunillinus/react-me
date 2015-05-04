@@ -1,0 +1,9 @@
+{
+  "name": "react-play",
+  "version": "0.0.0",
+  "description": "Playing with React",
+  "dependencies": {
+    "body-parser": "^1.12.3",
+    "express": "^4.12.3"
+  }
+}
