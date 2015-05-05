@@ -12,11 +12,27 @@
     ]
   };
 
+  var Highlight = {
+    componentDidUpdate: function() {
+      var node = $(this.getDOMNode());
+      node.slideUp();
+      node.slideDown();
+    }
+  };
+
   var Playlist = React.createClass({
+    getInitialState: function() {
+      var nowPlaying = 1;
+      setInterval(function() {
+        this.setState({nowPlaying: this.state.nowPlaying + 1});
+      }.bind(this), 3000);
+      return null;
+    },
+
     render: function() {
       return (
-              <div>
-                <h3>{this.props.data.title}</h3>
+              <div className="playlist">
+                <h3>{this.props.data.title} [{this.state.nowPlaying}]</h3>
                 {this.props.data.songs.map(function(song, index) {
                   return <Song data={song} key={index} />;
                 })}
@@ -26,11 +42,14 @@
   });
 
   var Song = React.createClass({
+    getInitialState: function() {
+      return {state: 'stopped'};
+    },
     render: function() {
-      return (
-              <p>{this.props.data.title} - {this.props.data.artist}</p>
-              );
-    }
+      return <div className="song {this.state.state}">{this.props.data.title} - {this.props.data.artist}</div>
+    },
+
+    mixins: [Highlight]
   });
 
   var Timer = React.createClass({
@@ -42,9 +61,6 @@
   var App = React.createClass({
     getInitialState: function() {
       var state = {time: new Date().toString()};
-      setInterval(function() {
-        this.setState({time: new Date().toString()});
-      }.bind(this), 1000);
       return state;
     },
 
