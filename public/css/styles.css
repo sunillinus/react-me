@@ -12,9 +12,10 @@ html, body {
 }
 
 .playing {
-  color: blue;
+  font-weight: bold;
 }
 
 .not-playing {
+  font-weight: normal;
 }
 
